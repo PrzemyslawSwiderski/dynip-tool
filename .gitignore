@@ -1,0 +1,23 @@
+# Gradle
+.gradle
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Build files
+**/build/
+!src/**/build/
+
+# Intellij Idea
+.idea
+
+config.yml
+state.yml
+config.yaml
+state.yaml
