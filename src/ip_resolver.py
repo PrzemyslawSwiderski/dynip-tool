@@ -3,7 +3,6 @@ import time
 
 import requests
 
-from common import success_exit
 from src.common import fail_exit
 
 logger = logging.getLogger('dynip')
@@ -41,11 +40,3 @@ def get_wan_ip(config):
 
     logger.error("Could not find public IP")
     fail_exit()
-
-
-def find_ip(config, startup_state):
-    old_wan_ip = startup_state["wan_ip"]
-    wan_ip = get_wan_ip(config)
-    if wan_ip == old_wan_ip:
-        logger.info("IP did not change: %s", wan_ip)
-        success_exit()

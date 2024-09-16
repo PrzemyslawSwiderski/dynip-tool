@@ -58,7 +58,7 @@ def write_state(state):
 
 def abort_on_failure(label, resp):
     """Abort this script completely if the response is non 200 status."""
-    if resp.status_code != 200:
+    if resp is not None and resp.status_code != 200:
         logger.error("FATAL HTTP ERROR...")
         logger.warning(f"Non-200 status code from {label} api.")
         logger.warning(f"url: {resp.url}")

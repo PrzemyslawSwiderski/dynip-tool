@@ -15,6 +15,18 @@ wan_ip_endpoints:
   - 'https://api.ipify.org'
   - 'https://ifconfig.me/ip'
 
+# GitHub Gist section
+# To enable public IP gist publishing change 'enabled' flag to true
+# Please note that existing gist ID must be provided in <GIST_ID>
+# <GITHUB_API_TOKEN> is also required to be changed to a proper token
+github_gist:
+  enabled: false
+  gists_url: 'https://api.github.com/gists'
+  gist_id: '<GIST_ID>'
+  api_token: '<GITHUB_API_TOKEN>'
+  requests_timeout_seconds: 3
+  retry_limit: 5
+
 # DNS provider apis.
 dns_apis:
   NAME_COM:
