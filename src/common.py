@@ -1,11 +1,9 @@
 import logging
 import sys
-import time
 from datetime import datetime
 from os.path import exists
 from pathlib import Path
 
-import requests
 import yaml
 
 BLANK_STATE = {
@@ -79,33 +77,6 @@ def timeout_abort(config, label, url):
     logger.warning("timeout seconds: %s", reqs_timeout)
     logger.warning("retries: %s", config["getreq_retry_limit"])
     fail_exit()
-
-
-def get_with_retry(config, label, api_auth=None):
-    """Gets the specified URL and retries if there's a timeout."""
-    reqs_timeout = config["requests_timeout_seconds"]
-    retry_limit = config["getreq_retry_limit"]
-    url = config["wanip_endpoint"]
-    tries = 0
-    while True:
-        try:
-            resp = requests.get(url, auth=api_auth, timeout=reqs_timeout)
-            break
-        except requests.exceptions.ReadTimeout:
-            tries += 1
-            if tries < retry_limit:
-                time.sleep(reqs_timeout)
-                continue
-            timeout_abort(label, url, config)
-        except requests.exceptions.ConnectionError:
-            tries += 1
-            if tries < retry_limit:
-                time.sleep(reqs_timeout)
-                continue
-            timeout_abort(label, url, config)
-
-    abort_on_failure(label, resp)
-    return resp
 
 
 def success_exit(new_states=None):

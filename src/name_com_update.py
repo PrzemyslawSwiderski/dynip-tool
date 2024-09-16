@@ -1,11 +1,34 @@
 import json
 import logging
+import time
 
 import requests
 
-from common import get_with_retry, success_exit, timeout_abort, abort_on_failure
+from common import success_exit, timeout_abort, abort_on_failure
 
 logger = logging.getLogger('dynip')
+
+
+def get_with_retry(config, label, api_auth):
+    """Gets the specified URL and retries if there's a timeout."""
+    reqs_timeout = config["requests_timeout_seconds"]
+    retry_limit = config["getreq_retry_limit"]
+    url = config["wanip_endpoint"]
+    tries = 0
+    resp = None
+    while True:
+        try:
+            resp = requests.get(url, auth=api_auth, timeout=reqs_timeout)
+            break
+        except (requests.exceptions.ReadTimeout, requests.exceptions.ConnectionError):
+            tries += 1
+            if tries < retry_limit:
+                time.sleep(reqs_timeout)
+                continue
+            timeout_abort(label, url, config)
+
+    abort_on_failure(label, resp)
+    return resp
 
 
 def name_com_update(config, wan_ip):
@@ -15,7 +38,7 @@ def name_com_update(config, wan_ip):
         f"{str(config['domain_id'])}"
     )
     auth_params = (config["username"], config["token"])
-    get_resp = get_with_retry(config, "record_list_api", api_auth=auth_params)
+    get_resp = get_with_retry(config, "record_list_api", auth_params)
     existing_record = get_resp.json()
     if existing_record["answer"] == wan_ip:
         logger.info("IP is already the same: %s", wan_ip)

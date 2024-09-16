@@ -17,7 +17,11 @@ gradle-app.setting
 # Intellij Idea
 .idea
 
+# Configs
 config.yml
 state.yml
 configs/config.yaml
 configs/state.yaml
+
+# Python
+__pycache__

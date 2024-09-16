@@ -27,9 +27,6 @@ tasks {
 
     register<VenvTask>("runIpUpdate") {
         args = listOf("src/ip_update.py")
-//        environment = mapOf(
-//            "PYTHONPATH" to file("src").path
-//        )
     }
 
 }

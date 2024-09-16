@@ -10,7 +10,10 @@ requests_timeout_seconds: 5
 getreq_retry_limit: 5
 
 # WAN IP API URL
-wanip_endpoint: 'https://ip4.seeip.org/'
+wan_ip_endpoints:
+  - 'https://api.seeip.org'
+  - 'https://api.ipify.org'
+  - 'https://ifconfig.me/ip'
 
 # DNS provider apis.
 dns_apis:
