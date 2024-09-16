@@ -19,5 +19,5 @@ gradle-app.setting
 
 config.yml
 state.yml
-config.yaml
-state.yaml
+configs/config.yaml
+configs/state.yaml

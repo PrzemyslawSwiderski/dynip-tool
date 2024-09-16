@@ -1,9 +1,9 @@
 import logging
-import os
 import sys
 import time
 from datetime import datetime
 from os.path import exists
+from pathlib import Path
 
 import requests
 import yaml
@@ -15,9 +15,9 @@ BLANK_STATE = {
     "last_failed_run": "1970-01-01T00:00:00.000000",
     "last_fatal_mail_sent": "1970-01-01T00:00:00.000000",
 }
-PROJECT_PATH = os.path.abspath(os.path.join(__file__, os.pardir))
-CONFIG_PATH = os.path.join(PROJECT_PATH, "config.yaml")
-STATE_PATH = os.path.join(PROJECT_PATH, "state.yaml")
+CONFIGS_PATH = Path(__file__).resolve().parent.parent.joinpath("configs")
+CONFIG_PATH = Path(CONFIGS_PATH).joinpath("config.yaml")
+STATE_PATH = Path(CONFIGS_PATH).joinpath("state.yaml")
 
 logger = logging.getLogger('dynip')
 
@@ -28,7 +28,7 @@ def load_config():
         fail_exit()
 
     with open(CONFIG_PATH, encoding="utf-8") as file_handle:
-        yaml.safe_load(file_handle)
+        return yaml.safe_load(file_handle)
 
 
 def init_logger(config):
