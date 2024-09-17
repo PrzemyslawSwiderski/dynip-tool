@@ -5,7 +5,8 @@ After=network.target nss-lookup.target
 
 [Service]
 Type=oneshot
-ExecStart=$DYNDNS_WORKING_DIR/gradlew :runIpUpdate
+WorkingDirectory=<dynip-tool project dir>
+ExecStart=/bin/sh -c '<dynip-tool project dir>/gradlew :runIpUpdate'
 
 [Install]
 WantedBy=default.target

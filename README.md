@@ -41,7 +41,10 @@ It is possible to invoke the script directly by running:
 ./gradlew runIpUpdate
 ```
 
-## In `services` catalog there are `dynip.service` and `dynip.timer` services defined which can be used as templates.
+## Service set up
 
-Please note that `DYNDNS_WORKING_DIR` environment variables has to be present and referencing this project directory
-prior to setting up the services.
+In `services` catalog there are `dynip.service` and `dynip.timer` services defined which can be used as templates for
+the system service creation.
+
+> Please note that `<dynip-tool project dir>` placeholders has to be replaced with this project directory
+> prior to setting up the services.
