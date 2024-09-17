@@ -6,8 +6,8 @@ from datetime import datetime
 
 from common import load_config, init_logger, get_state, success_exit
 from ip_resolver import get_wan_ip
-from src.gist_update import update_gist
-from src.name_com_update import name_com_update
+from gist_update import update_gist
+from name_com_update import name_com_update
 
 logger = logging.getLogger('dynip')
 

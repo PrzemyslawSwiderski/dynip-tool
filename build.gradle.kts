@@ -23,6 +23,11 @@ tasks {
     register<VenvTask>("pipInstall") {
         venvExec = "pip"
         args = listOf("install", "-r", "requirements.txt")
+
+        doLast {
+            layout.projectDirectory.file("configs/config.example.yaml").asFile
+                .copyTo(layout.projectDirectory.file("configs/config.yaml").asFile)
+        }
     }
 
     register<VenvTask>("runIpUpdate") {

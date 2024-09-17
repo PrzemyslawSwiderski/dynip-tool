@@ -3,7 +3,7 @@ import time
 
 import requests
 
-from src.common import fail_exit
+from common import fail_exit
 
 logger = logging.getLogger('dynip')
 
