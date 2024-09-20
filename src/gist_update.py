@@ -41,6 +41,6 @@ def update_gist(config, wan_ip):
             break
     if (response is not None and
             response.status_code == 200):
-        logger.info(f"Successfully updated gist file.")
+        logger.info("Successfully updated gist file.")
     else:
         logger.error("Could not update gist file.")

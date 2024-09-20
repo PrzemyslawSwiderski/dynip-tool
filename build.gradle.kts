@@ -1,16 +1,14 @@
 import com.pswidersk.gradle.python.VenvTask
 
 plugins {
-    id("com.pswidersk.python-plugin") version "2.7.3"
+    id("com.pswidersk.python-plugin") version "2.8.0"
 }
 
 pythonPlugin {
     pythonVersion = "3.12.4"
     condaInstaller = "Miniconda3"
     condaVersion = "py312_24.5.0-0"
-
-    val homePath = providers.systemProperty("user.home").get()
-    installDir = file(homePath).resolve(".gradle/python")
+    useHomeDir = true
 }
 
 tasks {
