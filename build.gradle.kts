@@ -23,8 +23,11 @@ tasks {
         args = listOf("install", "-r", "requirements.txt")
 
         doLast {
-            layout.projectDirectory.file("configs/config.example.yaml").asFile
-                .copyTo(layout.projectDirectory.file("configs/config.yaml").asFile)
+            val confFile = layout.projectDirectory.file("configs/config.yaml").asFile
+            if (!confFile.exists()) {
+                layout.projectDirectory.file("configs/config.example.yaml").asFile
+                    .copyTo(confFile)
+            }
         }
     }
 

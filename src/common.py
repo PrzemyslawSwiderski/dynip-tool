@@ -1,10 +1,11 @@
 import logging
-import sys
+from asyncio import CancelledError
 from datetime import datetime
 from os.path import exists
 from pathlib import Path
 
 import yaml
+from scheduler import SchedulerError
 
 BLANK_STATE = {
     "wan_ip": "127.0.0.1",
@@ -87,7 +88,7 @@ def success_exit(new_states=None):
             state[key] = new_states[key]
     state["last_successful_run"] = datetime.now().isoformat()
     write_state(state)
-    sys.exit(0)
+    raise CancelledError("All good")
 
 
 def fail_exit():
@@ -95,4 +96,4 @@ def fail_exit():
     state = get_state()
     state["last_failed_run"] = datetime.now().isoformat()
     write_state(state)
-    sys.exit(1)
+    raise SchedulerError("Failed exit")
