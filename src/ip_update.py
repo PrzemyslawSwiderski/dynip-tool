@@ -4,7 +4,6 @@ import asyncio
 import datetime as dt
 import logging
 from asyncio import CancelledError
-
 from scheduler import SchedulerError
 from scheduler.asyncio import Scheduler
 
@@ -18,7 +17,6 @@ logger = logging.getLogger('dynip')
 
 async def perform_update():
     config = load_config()
-    init_logger(config)
     startup_state = get_state()
     old_wan_ip = startup_state["wan_ip"]
     wan_ip = get_wan_ip(config)
@@ -45,10 +43,13 @@ async def try_update():
     except SchedulerError as err:
         logger.warning("Something went wrong: %s", err)
 
+
 async def main():
     """Main app execution code."""
     config = load_config()
+    init_logger(config)
     check_interval_in_minutes = config["check_interval_in_minutes"]
+    logger.info("Starting the application and scheduling IP update in %s minutes.", check_interval_in_minutes)
     schedule = Scheduler()
     schedule.cyclic(dt.timedelta(minutes=check_interval_in_minutes), try_update)
 

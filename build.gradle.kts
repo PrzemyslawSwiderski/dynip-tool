@@ -18,6 +18,11 @@ tasks {
         args = listOf("info")
     }
 
+    register<VenvTask>("condaActivate") {
+        venvExec = "conda"
+        args = listOf("activate", "python-3.12.4")
+    }
+
     register<VenvTask>("pipInstall") {
         venvExec = "pip"
         args = listOf("install", "-r", "requirements.txt")
