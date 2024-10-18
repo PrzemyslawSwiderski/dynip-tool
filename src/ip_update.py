@@ -30,7 +30,7 @@ async def perform_update():
     success_exit(
         {
             "wan_ip": wan_ip,
-            "last_ip_change": dt.now().isoformat(),
+            "last_ip_change": dt.datetime.now().isoformat(),
         }
     )
 
